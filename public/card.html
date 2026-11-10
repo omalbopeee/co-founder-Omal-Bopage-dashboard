@@ -6,11 +6,11 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#061e3f">
   <title>Omal Bopage | TapX Digital Card</title>
-  <link rel="icon" href="/assets/tapx-logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/card.css">
-  <link rel="stylesheet" href="/assets/card-refinements.css">
-  <link rel="stylesheet" href="/card-extra.css">
-  <script type="module" src="/card.js"></script>
+  <link rel="icon" href="./assets/tapx-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/card.css">
+  <link rel="stylesheet" href="./assets/card-refinements.css">
+  <link rel="stylesheet" href="./card-extra.css">
+  <script type="module" src="./card.js"></script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
           <button class="share-button" type="button" data-share><svg class="icon" aria-hidden="true"><use href="#i-share-profile"/></svg><span>Share profile</span></button>
         </div>
         <div class="profile-introduction">
-          <a class="portrait-trigger" href="/assets/omal-profile.webp" data-open-portrait aria-label="View full photo of Omal Bopage" aria-haspopup="dialog" aria-controls="image-dialog" target="_blank" rel="noopener noreferrer"><img class="profile-portrait" src="/assets/omal-profile.webp" width="720" height="720" alt="Omal Bopage" fetchpriority="high"><span class="portrait-expand" aria-hidden="true"><svg class="icon"><use href="#i-external"/></svg></span></a>
+          <a class="portrait-trigger" href="./assets/omal-profile.webp" data-open-portrait aria-label="View full photo of Omal Bopage" aria-haspopup="dialog" aria-controls="image-dialog" target="_blank" rel="noopener noreferrer"><img class="profile-portrait" src="./assets/omal-profile.webp" width="720" height="720" alt="Omal Bopage" fetchpriority="high"><span class="portrait-expand" aria-hidden="true"><svg class="icon"><use href="#i-external"/></svg></span></a>
           <div class="identity">
             <h1 id="name">Omal<br>Bopage<span>.</span></h1>
             <p class="profile-role">Co-Founder<br><strong><span>TapX Lanka</span></strong></p>
@@ -49,7 +49,7 @@
       </header>
 
       <div class="card-content" id="contact">
-        <a class="save-button" href="/assets/omal-bopage.vcf" download="Omal-Bopage-TapX.vcf" data-save="personal"><svg class="icon" aria-hidden="true"><use href="#i-add"/></svg><span>Save my contact</span><svg class="icon save-arrow" aria-hidden="true"><use href="#i-download"/></svg></a>
+        <button class="save-button" type="button" data-save="personal"><svg class="icon" aria-hidden="true"><use href="#i-add"/></svg><span>Save my contact</span><svg class="icon save-arrow" aria-hidden="true"><use href="#i-download"/></svg></button>
 
         <div class="contact-actions" aria-label="Contact Omal">
           <a href="tel:+94762199292" data-link="phone"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span>Call me</span></a>
@@ -62,7 +62,7 @@
           <button class="link-tile" type="button" data-open-social aria-haspopup="dialog" aria-controls="social-dialog"><span class="link-title"><span class="social-stack" aria-hidden="true"><svg class="icon instagram"><use href="#i-instagram"/></svg><svg class="icon linkedin"><use href="#i-linkedin"/></svg></span>Social media<svg class="icon external" aria-hidden="true"><use href="#i-external"/></svg></span><small>Follow my social accounts</small></button>
         </div>
 
-        <button class="company-trigger" type="button" data-open-company aria-haspopup="dialog" aria-controls="company-dialog"><img src="/assets/tapx-logo.webp" width="40" height="40" alt=""><span><small>MY COMPANY</small><strong>Discover TapX Lanka</strong></span><span class="company-trigger-arrow"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+        <button class="company-trigger" type="button" data-open-company aria-haspopup="dialog" aria-controls="company-dialog"><img src="./assets/tapx-logo.webp" width="40" height="40" alt=""><span><small>MY COMPANY</small><strong>Discover TapX Lanka</strong></span><span class="company-trigger-arrow"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       </div>
     </article>
     <a class="powered-by" href="https://tapx.lk/" target="_blank" rel="noopener noreferrer">Made to connect. <strong>Powered by Tap<span>X</span></strong></a>
@@ -70,7 +70,7 @@
 
   <dialog id="company-dialog" class="sheet company-sheet" aria-labelledby="company-title">
     <div class="sheet-handle" aria-hidden="true"></div>
-    <header class="company-header"><img src="/assets/tapx-logo.webp" width="44" height="44" alt="TapX"><div><h2 id="company-title">TapX Lanka</h2><p>Sri Lankan ideas. Smarter connections.</p></div><button class="close-button" type="button" data-close-dialog aria-label="Close TapX details"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></header>
+    <header class="company-header"><img src="./assets/tapx-logo.webp" width="44" height="44" alt="TapX"><div><h2 id="company-title">TapX Lanka</h2><p>Sri Lankan ideas. Smarter connections.</p></div><button class="close-button" type="button" data-close-dialog aria-label="Close TapX details"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></header>
     <div class="company-tabs" role="tablist" aria-label="About TapX Lanka" data-tabs>
       <button type="button" role="tab" id="tab-about" aria-controls="panel-about" aria-selected="true" tabindex="0">About</button>
       <button type="button" role="tab" id="tab-solutions" aria-controls="panel-solutions" aria-selected="false" tabindex="-1">Solutions</button>
@@ -86,30 +86,19 @@
         <div class="tap-flow"><span><svg class="icon" aria-hidden="true"><use href="#i-nfc"/></svg>Tap or scan</span><svg class="icon flow-arrow" aria-hidden="true"><use href="#i-arrow"/></svg><span>Discover. Connect.</span></div>
       </section>
 
-      <section id="panel-solutions" class="company-panel solutions-panel" role="tabpanel" aria-labelledby="tab-solutions" tabindex="0" hidden>
-        <div class="solution"><img class="solution-photo" src="/assets/tapx-business-cards.webp" width="60" height="60" alt="TapX business cards and smartphone profile" loading="lazy"><div><h3>Digital Business Cards</h3><p>Share your contact details, website, and social profiles in one tap.</p></div></div>
-        <div class="solution"><img class="solution-photo" src="/assets/tapx-connect.webp" width="60" height="60" alt="TapX Connect NFC stands and smartphone page" loading="lazy"><div><h3>TapX Connect <span>Communication &amp; Retail</span></h3><p>Calls, WhatsApp, reviews, directions, contact saving, and optional bank details.</p></div></div>
-        <div class="solution"><img class="solution-photo" src="/assets/tapx-stay.webp" width="60" height="60" alt="Ocean Villa NFC guest stand and smartphone guide" loading="lazy"><div><h3>TapX Stay <span>Villas &amp; Hotels</span></h3><p>Guest Wi-Fi, reviews, location, and social links in one guest experience.</p></div></div>
-        <div class="solution"><img class="solution-photo" src="/assets/tapx-dine.webp" width="60" height="60" alt="Savoré restaurant QR and NFC menu stand with a smartphone dining page" loading="lazy"><div><h3>TapX Dine <span>Restaurants &amp; Cafés</span></h3><p>Digital menus, guest Wi-Fi, reviews, and restaurant social links.</p></div></div>
-      </section>
+      <section id="panel-solutions" class="company-panel solutions-panel" role="tabpanel" aria-labelledby="tab-solutions" tabindex="0" hidden></section>
 
-      <section id="panel-showcase" class="company-panel showcase-panel" role="tabpanel" aria-labelledby="tab-showcase" tabindex="0" hidden>
-        <div class="media-choices" role="group" aria-label="Choose a TapX product"><button type="button" data-media="cards" aria-pressed="true">Business cards</button><button type="button" data-media="stay" aria-pressed="false">TapX Stay</button><button type="button" data-media="connect" aria-pressed="false">TapX Connect</button><button type="button" data-media="dine" aria-pressed="false">TapX Dine</button></div>
-        <figure class="media-frame" data-media-panel="cards"><img src="/assets/tapx-business-cards.webp" width="1200" height="800" alt="TapX NFC business cards for lawyers and doctors alongside a smartphone contact profile" loading="lazy"><figcaption>Digital Business Cards<span>Product design example</span></figcaption></figure>
-        <figure class="media-frame" data-media-panel="stay" hidden><img src="/assets/tapx-stay.webp" width="1000" height="1000" alt="Ocean Villa NFC and QR stand with a smartphone guest guide for Wi-Fi, reviews, location, and social media" loading="lazy"><figcaption>TapX Stay — Villas &amp; Hotels<span>Product design example</span></figcaption></figure>
-        <figure class="media-frame" data-media-panel="connect" hidden><img src="/assets/tapx-connect.webp" width="1200" height="800" alt="TapX Connect communication stands and smartphone page for calls, WhatsApp, email, and customer engagement" loading="lazy"><figcaption>TapX Connect — Communication &amp; Retail<span>Product design example</span></figcaption></figure>
-        <figure class="media-frame" data-media-panel="dine" hidden><img src="/assets/tapx-dine.webp" width="1000" height="1250" alt="Savoré restaurant NFC and QR menu stand alongside a smartphone page showing the digital menu, Wi-Fi, waiter requests, reviews, and social links" loading="lazy"><figcaption>TapX Dine — Restaurants &amp; Cafés<span>Product design example</span></figcaption></figure>
-      </section>
+      <section id="panel-showcase" class="company-panel showcase-panel" role="tabpanel" aria-labelledby="tab-showcase" tabindex="0" hidden></section>
 
     <footer class="company-contact">
       <div class="company-contact-links"><a href="https://tapx.lk/" data-company="website" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>tapx.lk<svg class="icon external" aria-hidden="true"><use href="#i-external"/></svg></a><a href="mailto:hello@tapx.lk" data-company="email"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>hello@tapx.lk<svg class="icon external" aria-hidden="true"><use href="#i-external"/></svg></a><a href="tel:+94707703333" data-company="phone"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>070 770 3333<svg class="icon external" aria-hidden="true"><use href="#i-external"/></svg></a></div>
-      <div class="company-buttons"><a class="save-company" href="/assets/tapx-lanka.vcf" download="TapX-Lanka.vcf" data-save="company"><svg class="icon" aria-hidden="true"><use href="#i-add"/></svg>Save TapX contact</a><a class="company-whatsapp" href="https://wa.me/94707703333" data-company="whatsapp" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a></div>
+      <div class="company-buttons"><button class="save-company" type="button" data-save="company"><svg class="icon" aria-hidden="true"><use href="#i-add"/></svg>Save TapX contact</button><a class="company-whatsapp" href="https://wa.me/94707703333" data-company="whatsapp" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a></div>
       <p class="contact-help">Save our details. Let’s build your next connection.</p><p class="dialog-status" role="status" aria-live="polite"></p>
     </footer>
     </div>
   </dialog>
 
-  <dialog id="social-dialog" class="sheet social-sheet" aria-labelledby="social-title"><div class="sheet-handle" aria-hidden="true"></div><div class="sheet-heading"><div><span class="eyebrow">BEYOND THE INTRODUCTION</span><h2 id="social-title">Let’s stay connected.</h2></div><button class="close-button" type="button" data-close-dialog aria-label="Close social links"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><p class="sheet-intro">A little more of me, and what I’m building.</p><a class="social-option" href="https://www.instagram.com/_omal__bopeee_/" data-link="instagram" target="_blank" rel="noopener noreferrer"><span class="social-platform instagram"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span><span><strong>Instagram</strong><small>@_omal__bopeee_</small></span><svg class="icon external" aria-hidden="true"><use href="#i-external"/></svg></a><a class="social-option" href="https://www.linkedin.com/in/omal-bopeeee/" data-link="linkedin" target="_blank" rel="noopener noreferrer"><span class="social-platform linkedin"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></span><span><strong>LinkedIn</strong><small>Omal Bopage</small></span><svg class="icon external" aria-hidden="true"><use href="#i-external"/></svg></a><a class="social-option" href="https://www.facebook.com/share/1KTcXatjhG/?mibextid=wwXIfr" data-link="facebook" target="_blank" rel="noopener noreferrer"><span class="social-platform facebook" aria-hidden="true">f</span><span><strong>Facebook</strong><small>Omal Bopage</small></span><svg class="icon external" aria-hidden="true"><use href="#i-external"/></svg></a><a class="social-option" href="https://www.tiktok.com/@omal_bopeeeee" data-link="tiktok" target="_blank" rel="noopener noreferrer"><span class="social-platform tiktok" aria-hidden="true">♪</span><span><strong>TikTok</strong><small>@omal_bopeeeee</small></span><svg class="icon external" aria-hidden="true"><use href="#i-external"/></svg></a><p class="sheet-footnote">Good conversations can start anywhere.</p></dialog>
+  <dialog id="social-dialog" class="sheet social-sheet" aria-labelledby="social-title"><div class="sheet-handle" aria-hidden="true"></div><div class="sheet-heading"><div><span class="eyebrow">BEYOND THE INTRODUCTION</span><h2 id="social-title">Let’s stay connected.</h2></div><button class="close-button" type="button" data-close-dialog aria-label="Close social links"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><p class="sheet-intro">A little more of me, and what I’m building.</p><p class="sheet-footnote">Good conversations can start anywhere.</p></dialog>
 
   <dialog id="share-dialog" class="sheet share-sheet" aria-labelledby="share-title"><div class="sheet-handle" aria-hidden="true"></div><div class="sheet-heading"><div><span class="eyebrow">PASS ON THE CONNECTION</span><h2 id="share-title">Share my card.</h2></div><button class="close-button" type="button" data-close-dialog aria-label="Close share options"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><p class="sheet-intro">Send this link to someone you’d like me to meet.</p><label for="share-url">Card link</label><input id="share-url" type="url" readonly><button class="save-button" type="button" data-copy-link><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy link</button></dialog>
 

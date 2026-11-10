@@ -3,7 +3,7 @@ export const DEFAULT_CARD = {
   profile: {
     firstName: 'Omal', lastName: 'Bopage', role: 'Co-Founder', department: '',
     company: 'TapX Lanka', contactName: 'Omal Bopage-Co Founder TapX',
-    photo: '/assets/omal-profile.webp', photoAlt: 'Omal Bopage', photoPosition: 35,
+    photo: './assets/omal-profile.webp', photoAlt: 'Omal Bopage', photoPosition: 35,
     cardUrl: 'https://co-founder.omal-bopage.tapx.lk/'
   },
   contacts: [
@@ -20,16 +20,16 @@ export const DEFAULT_CARD = {
   ],
   company: {
     name: 'TapX Lanka', tagline: 'Sri Lankan ideas. Smarter connections.',
-    logo: '/assets/tapx-logo.webp', phone: '+94707703333', whatsapp: '+94707703333',
+    logo: './assets/tapx-logo.webp', phone: '+94707703333', whatsapp: '+94707703333',
     email: 'hello@tapx.lk', website: 'https://tapx.lk/',
     eyebrow: 'SMART IDEAS. REAL CONNECTIONS.', headline: 'Small tap.', subheading: 'Big possibilities.',
     summary: 'TapX is a Sri Lankan technology startup specializing in smart digital solutions and customer engagement experiences.',
     description: 'We help businesses connect with their customers through NFC, QR codes, and modern web technologies, making everyday interactions simpler, smarter, and more accessible.',
     products: [
-      { id: 'cards', name: 'Digital Business Cards', audience: '', buttonLabel: 'Business cards', description: 'Share your contact details, website, and social profiles in one tap.', photo: '/assets/tapx-business-cards.webp', photoAlt: 'TapX NFC business cards and smartphone contact profile' },
-      { id: 'connect', name: 'TapX Connect', audience: 'Communication & Retail', buttonLabel: 'TapX Connect', description: 'Calls, WhatsApp, reviews, directions, contact saving, and optional bank details.', photo: '/assets/tapx-connect.webp', photoAlt: 'TapX Connect NFC stands and smartphone page' },
-      { id: 'stay', name: 'TapX Stay', audience: 'Villas & Hotels', buttonLabel: 'TapX Stay', description: 'Guest Wi-Fi, reviews, location, and social links in one guest experience.', photo: '/assets/tapx-stay.webp', photoAlt: 'Ocean Villa NFC guest stand and smartphone guide' },
-      { id: 'dine', name: 'TapX Dine', audience: 'Restaurants & Cafés', buttonLabel: 'TapX Dine', description: 'Digital menus, guest Wi-Fi, reviews, and restaurant social links.', photo: '/assets/tapx-dine.webp', photoAlt: 'Savoré restaurant NFC and QR menu stand with a smartphone dining page' }
+      { id: 'cards', name: 'Digital Business Cards', audience: '', buttonLabel: 'Business cards', description: 'Share your contact details, website, and social profiles in one tap.', photo: './assets/tapx-business-cards.webp', photoAlt: 'TapX NFC business cards and smartphone contact profile' },
+      { id: 'connect', name: 'TapX Connect', audience: 'Communication & Retail', buttonLabel: 'TapX Connect', description: 'Calls, WhatsApp, reviews, directions, contact saving, and optional bank details.', photo: './assets/tapx-connect.webp', photoAlt: 'TapX Connect NFC stands and smartphone page' },
+      { id: 'stay', name: 'TapX Stay', audience: 'Villas & Hotels', buttonLabel: 'TapX Stay', description: 'Guest Wi-Fi, reviews, location, and social links in one guest experience.', photo: './assets/tapx-stay.webp', photoAlt: 'Ocean Villa NFC guest stand and smartphone guide' },
+      { id: 'dine', name: 'TapX Dine', audience: 'Restaurants & Cafés', buttonLabel: 'TapX Dine', description: 'Digital menus, guest Wi-Fi, reviews, and restaurant social links.', photo: './assets/tapx-dine.webp', photoAlt: 'Savoré restaurant NFC and QR menu stand with a smartphone dining page' }
     ]
   },
   design: {
@@ -56,7 +56,7 @@ export const clone = value => structuredClone(value);
 export const LOCKED_WORDING = ['brandLabel', 'shareButton', 'footerTagline', 'poweredBy', 'brandName', 'brandUrl'];
 export const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 export const safeURL = value => { try { const u = new URL(value); return ['https:', 'http:'].includes(u.protocol) ? u.href : ''; } catch { return ''; } };
-export const IMAGE_ASSETS = ['/assets/omal-profile.webp', '/assets/tapx-logo.webp', '/assets/tapx-business-cards.webp', '/assets/tapx-connect.webp', '/assets/tapx-stay.webp', '/assets/tapx-dine.webp'];
+export const IMAGE_ASSETS = ['./assets/omal-profile.webp', './assets/tapx-logo.webp', './assets/tapx-business-cards.webp', './assets/tapx-connect.webp', './assets/tapx-stay.webp', './assets/tapx-dine.webp'];
 export function photoURL(value) {
   return IMAGE_ASSETS.includes(value) || /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(value ?? '') ? value : '';
 }

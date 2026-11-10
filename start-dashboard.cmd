@@ -7,5 +7,5 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-node server.mjs --open
+node scripts/preview.mjs --open
 if errorlevel 1 pause

@@ -1,3 +1,4 @@
+import { cardStore } from './storage.js';
 import { DEFAULT_CARD, clone, escapeHTML as e, photoURL, safeURL, contactURL, makeVCard } from './model.js';
 import { icon } from './icons.js';
 
@@ -35,7 +36,7 @@ function renderCard(card) {
   $('.card-label').insertAdjacentHTML('afterbegin', icon('nfc'));
   text('[data-share] span', w.shareButton);
   text('[data-save="personal"] span', w.saveContact);
-  $('[data-save="personal"]').download = `${p.firstName}-${p.lastName}-TapX.vcf`;
+  $('[data-save="personal"]').dataset.filename = `${p.firstName}-${p.lastName}-TapX.vcf`;
   $('.contact-actions').setAttribute('aria-label', `Contact ${p.firstName}`);
   card.contacts.forEach(entry => {
     const anchor = $(`[data-link="${entry.type === 'email' ? 'email' : entry.type}"]`);
@@ -76,7 +77,7 @@ function renderCard(card) {
     if (companyLabels[kind]) anchor.innerHTML = `${icon(kind === 'website' ? 'globe' : kind)}${e(companyLabels[kind])}${icon('external', 'external')}`;
   }
   $('[data-save="company"]').innerHTML = `${icon('add')}${e(w.companySave)}`;
-  $('[data-save="company"]').download = `${c.name.replace(/[^\p{L}\p{N}-]+/gu, '-') || 'Company'}.vcf`;
+  $('[data-save="company"]').dataset.filename = `${c.name.replace(/[^\p{L}\p{N}-]+/gu, '-') || 'Company'}.vcf`;
   text('.contact-help', w.companyHelp);
   const products = c.products;
   productIndex = Math.max(0, Math.min(productIndex, products.length - 1));
@@ -148,7 +149,7 @@ document.addEventListener('click', async event => {
   if (el.hasAttribute('data-save')) {
     event.preventDefault();
     const url = URL.createObjectURL(new Blob([makeVCard(currentCard, el.dataset.save === 'company')], { type: 'text/vcard;charset=utf-8' }));
-    const anchor = document.createElement('a'); anchor.href = url; anchor.download = el.download;
+    const anchor = document.createElement('a'); anchor.href = url; anchor.download = el.dataset.filename;
     document.body.append(anchor); anchor.click(); anchor.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   if (el.hasAttribute('data-open-portrait')) {
@@ -189,7 +190,7 @@ if (isPreview) {
   });
   parent.postMessage({ type: 'tapx:ready' }, location.origin);
 } else {
-  fetch('/api/card').then(async response => { if (!response.ok) throw new Error(); return response.json(); })
+  Promise.resolve().then(() => cardStore.read())
     .then(record => renderCard(record.card))
-    .catch(() => notify('Your saved card could not be loaded. Start the dashboard server and reload.'));
+    .catch(error => notify(error.message || 'Allow site storage and reload to open your saved card.'));
 }

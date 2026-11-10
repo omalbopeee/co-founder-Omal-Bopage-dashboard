@@ -1,39 +1,43 @@
 # Omal Bopage — TapX Card Studio
 
-A separate editor using the same navy/red Card Studio dashboard as the previous card project. Its live preview preserves Omal's portrait, warm card design, contact buttons, social links, and the TapX About / Solutions / Products dialog.
+A static digital card editor ready for GitHub Pages. Edit Omal's profile, portrait, contact buttons, website, social links, company details, products and card design, with an interactive live preview.
 
-## Open
+## Host on GitHub Pages
 
-Install Node.js 20 or newer, then double-click **start-dashboard.cmd**. Keep the terminal window open while editing. The dashboard opens at **http://127.0.0.1:4174**; the saved card is at **http://127.0.0.1:4174/card**.
+This folder is the source for [omalbopeee/co-founder-Omal-Bopage-dashboard](https://github.com/omalbopeee/co-founder-Omal-Bopage-dashboard).
 
-Alternatively, run `npm.cmd start` in this folder. No dependency installation is required. Port 4174 keeps this editor separate from the previous dashboard on 4173. If needed, set `PORT` to a free port before starting.
+1. Commit and push these files to the repository's **main** branch.
+2. Open **Settings → Pages → Build and deployment → Source** and select **GitHub Actions**.
+3. Open **Actions → Deploy GitHub Pages**. The workflow runs on pushes to main; you can also choose **Run workflow**.
+4. Open the site URL shown by the successful deployment.
 
-## Edit and save
+The expected default project address is https://omalbopeee.github.io/co-founder-Omal-Bopage-dashboard/ once deployment succeeds. The saved card opens at **card.html** on the same site.
 
-- **Profile & photo:** name, role, company, saved-contact name, portrait upload, photo description and crop position.
-- **Contact details:** the three fixed Call, WhatsApp and Email buttons, plus the optional My website tile.
-- **Social media:** edit, add, reorder, hide and remove social links.
-- **Company & products:** business contact details, logo upload, About copy, and products with image uploads, descriptions and gallery labels. Reordering products updates both Solutions and Products.
-- **Design & wording:** colours, section visibility, headings, descriptions and editable button labels. TapX branding, footer and the managed public card URL remain fixed, matching the previous editor.
+The included workflow tests the code, builds **pages-dist/** and deploys only that static output. No npm packages, account tokens or custom secrets are required by the project. The workflow follows [GitHub's Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
-The live preview follows your draft. **Preview** opens a larger interactive mobile/desktop view, including social and company dialogs, product zoom and contact downloads. **Save changes** persists your card; **View saved card** opens that version. Discard restores the last save. Reset restores the original Omal card into the draft and requires Save changes to persist it. Unfinished edits can be recovered from browser draft storage.
+## Saving edits
 
-Personal and company contact downloads generate separate `.vcf` files using the current card details.
+**Save changes stores edits only in this browser and device.** Returning to the same site in the same browser restores the saved card. It does not upload edits to GitHub, sync them to other devices, or update the original public card. Clearing site storage removes saved edits. The dashboard displays this limit.
 
-## Storage and the original website
+Live preview follows the draft; Preview opens an interactive mobile/desktop view. View saved card opens the saved version. Discard restores the last save. Reset restores the original card into the draft; Save changes applies it. Unfinished edits can be restored from browser draft storage. Personal and company vCards are generated from the current details when downloaded.
 
-Local saves go into `data/card.json`; the preceding save is kept in `data/card.previous.json`. Back up the entire folder to preserve your saved content and uploads. The server listens only on this computer.
+The managed card URL and TapX branding stay fixed, as in the previous editor. Shared online saving would require a backend; GitHub Pages serves this app as static files.
 
-This is an independent editor in `co-founder-Omal-Bopage-dashboard/`, beside the original `co-founder-Omal-Bopage/` website folder. Saving here updates its own saved card. It does **not** overwrite the original website's `index.html`, `profile.js`, or the public website at `https://co-founder.omal-bopage.tapx.lk/`. Publishing that website requires a separate hosting update.
+## Local preview and checks
 
-## Static build
+Install Node.js 20 or newer and double-click **start-dashboard.cmd**, or run **npm start**. Open http://127.0.0.1:4174 and keep the terminal open. Local preview uses the same browser storage as the hosted version; each site address has its own saved edits.
 
-Run `npm.cmd run build` to generate `pages-dist/`, which can be hosted as a separate static site, including under a project subdirectory. In that build, Save changes stores records only in the current browser and device. The dashboard displays this storage limit. It does not upload edits or provide shared online saving.
+- **npm test** runs model, browser-storage, static build and preview checks with Node's built-in test runner.
+- **npm run build** creates a fresh **pages-dist/** ready for static hosting. Generated files are excluded from Git.
+- **npm run preview** serves that built output at the same local address.
 
-Only the frontend in `public/` is copied to the static build; local `data/` is excluded. No deployment is performed by the build command.
+No dependency installation is needed. Change the PORT environment variable if 4174 is already in use.
 
-## Checks
+## Files
 
-Run `npm.cmd test` for validation, separate contact generation, persisted edits, backups, save conflicts and API checks. Tests use Node's built-in test runner and isolated temporary records; no packages are required.
+- **public/**: the static editor, saved-card page, browser storage, styles and used assets.
+- **scripts/**: static build and local preview helpers.
+- **test/**: checks used locally and by the deployment workflow.
+- **.github/workflows/pages.yml**: GitHub Pages deployment configuration.
 
-`public/` contains the editor, card preview, styles and local assets. `server.mjs` provides the local save API. `scripts/` contains the static build helper.
+The former disk-save server, API shim, default-only data folder, unused share image and fixed contact files have been removed. The original profile website lives separately in the neighbouring co-founder-Omal-Bopage folder.

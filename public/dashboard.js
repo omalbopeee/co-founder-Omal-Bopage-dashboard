@@ -1,3 +1,4 @@
+import { cardStore } from './storage.js';
 import { DEFAULT_CARD, CONTACT_TYPES, PLATFORMS, clone, escapeHTML, photoURL, validateCard, applyEditingPolicy } from './model.js';
 import { icon } from './icons.js';
 
@@ -17,7 +18,7 @@ const PRESETS = [
 ];
 const COLOURS = ['primary', 'accent', 'canvas', 'paper', 'surface', 'surfaceHover'];
 const DRAFT_KEY = 'tapx-omal-card-studio-draft-v1:' + new URL('.', import.meta.url).pathname;
-let draft, saved, savedAt, revision = 0, section = 'profile', saving = false, uploading = false, storageMode = 'local';
+let draft, saved, savedAt, revision = 0, section = 'profile', saving = false, uploading = false;
 let errors = [], toastTimer, previewTimer, draftTimer, recoveredDraft;
 
 function get(path) { return path.split('.').reduce((value, key) => value?.[key], draft); }
@@ -123,10 +124,7 @@ function updateState() {
   const name = [draft.profile.firstName, draft.profile.lastName].map(s => s?.trim()?.[0] || '').join('').toUpperCase();
   $('#owner-avatar').textContent = name || 'ME';
   $('#owner-avatar').title = `${draft.profile.firstName} ${draft.profile.lastName}`.trim();
-  const destination = storageMode === 'cloud' ? 'Saved online' : storageMode === 'browser' ? 'In this browser' : 'On this computer';
-  $('#saved-at').textContent = savedAt ? `Last saved ${new Date(savedAt).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })} · ${destination}` : storageMode === 'cloud' ? 'Your card is saved securely online.' : storageMode === 'browser' ? 'Your card is saved only in this browser.' : 'Your card is saved on this computer.';
-  $('#workspace-mode').textContent = storageMode === 'cloud' ? 'Online workspace' : storageMode === 'browser' ? 'Browser workspace' : 'Local workspace';
-  $('#storage-notice').hidden = storageMode !== 'browser';
+  $('#saved-at').textContent = savedAt ? `Last saved ${new Date(savedAt).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })} · In this browser` : 'Your card is saved only in this browser.';
   $('.draft-label').classList.toggle('is-saved', !isDirty);
   $('.draft-label').innerHTML = `<i></i>${isDirty ? 'Unsaved draft preview' : 'Saved card preview'}`;
 }
@@ -136,7 +134,7 @@ function stashDraft() {
   try {
     if (dirty()) localStorage.setItem(DRAFT_KEY, JSON.stringify({ card: draft, revision, updatedAt: new Date().toISOString() }));
     else localStorage.removeItem(DRAFT_KEY);
-  } catch { /* Saving to disk remains available if browser draft storage is full. */ }
+  } catch { /* The last saved record stays intact if browser draft storage is full. */ }
 }
 function changed({ render = false } = {}) {
   updateState();
@@ -164,18 +162,14 @@ async function saveCard() {
   // Keep a snapshot: edits made while this request is in flight stay unsaved.
   const submitted = clone(draft);
   try {
-    const response = await fetch('/api/card', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ card: submitted, revision }) });
-    const record = await response.json();
-    if (!response.ok) {
-      if (record.errors) { errors = record.errors; $('#preview-dialog').close(); goToErrors(); }
-      throw new Error(record.error || 'Your changes could not be saved. Please try again.');
-    }
+    const record = await cardStore.save(submitted, revision);
     saved = clone(record.card); revision = record.revision; savedAt = record.savedAt;
     stashDraft();
     toast(dirty() ? 'Saved. Your newest edits are still in the draft.' : 'Your card is saved. Looking good.');
     if (!dirty()) $('#preview-dialog').close();
   } catch (error) {
-    showError(error.message || 'Could not reach the dashboard. Check the server window and try again.');
+    if (error.errors) { errors = error.errors; $('#preview-dialog').close(); goToErrors(); }
+    else showError(error.message || 'Could not save in this browser. Allow site storage and try again.');
     toast('Could not save. Your edits are still here.', 'info');
   } finally { saving = false; updateState(); }
 }
@@ -287,18 +281,17 @@ for (const frame of [$('#live-frame'), $('#full-frame')]) frame.addEventListener
 hydrateIcons(); renderNav();
 async function initialise() {
   try {
-    const response = await fetch('/api/card'); const record = await response.json();
-    if (!response.ok) throw new Error(record.error || 'Could not load your card.');
+    const record = cardStore.read();
     const issues = validateCard(record.card);
-    if (issues.length) throw new Error('The saved card could not be read. Restore your data backup and restart the dashboard.');
-    draft = applyEditingPolicy(record.card); saved = clone(draft); revision = record.revision; savedAt = record.savedAt; storageMode = record.storage || 'local';
+    if (issues.length) throw new Error('The saved card could not be read. Allow site storage and reload the page.');
+    draft = applyEditingPolicy(record.card); saved = clone(draft); revision = record.revision; savedAt = record.savedAt;
     renderPanel(); refreshPreviews();
     try { const recovered = JSON.parse(localStorage.getItem(DRAFT_KEY)); if (recovered?.card) recovered.card = applyEditingPolicy(recovered.card); if (recovered?.card && !validateCard(recovered.card, { allowIncomplete: true }).length && JSON.stringify(recovered.card) !== JSON.stringify(saved)) { recoveredDraft = recovered; $('#recovery-banner').hidden = false; } } catch {}
   } catch (error) {
-    const help = ['127.0.0.1', 'localhost'].includes(location.hostname) ? 'Open start-dashboard.cmd and reload this page.' : 'Reload the page or try again in a moment.';
+    const help = 'Allow site storage, then reload the page or try again.';
     $('#panel').innerHTML = `<div class="form-card"><h2>Your card is taking a little longer.</h2><p class="field-help">${e(error.message)} ${help}</p><button class="button secondary" type="button" id="retry-load">Try again</button></div>`;
     $('#retry-load').addEventListener('click', initialise);
-    $('#save-status').className = 'save-status error'; $('#save-status').innerHTML = '<i></i>Not connected';
+    $('#save-status').className = 'save-status error'; $('#save-status').innerHTML = '<i></i>Storage unavailable';
   }
 }
 initialise();

@@ -1,52 +1,42 @@
-import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const publicDir = path.join(root, 'public');
-const output = path.join(root, 'pages-dist');
-const assetHash = createHash('sha256');
-async function hashAssets(directory) {
-  const entries = await readdir(directory, { withFileTypes: true });
-  for (const entry of entries.sort((a, b) => a.name.localeCompare(b.name))) {
-    const full = path.join(directory, entry.name);
-    if (entry.isDirectory()) await hashAssets(full);
-    else if (entry.isFile()) assetHash.update(path.relative(publicDir, full).split(path.sep).join('/')).update(await readFile(full));
+const source = path.join(root, 'public');
+const output = path.resolve(root, 'pages-dist');
+if (path.dirname(output) !== root || path.basename(output) !== 'pages-dist') throw new Error('Unexpected build output directory.');
+
+async function files(directory) {
+  const result = [];
+  for (const entry of (await readdir(directory, { withFileTypes: true })).sort((a, b) => a.name.localeCompare(b.name))) {
+    const filename = path.join(directory, entry.name);
+    if (entry.isDirectory()) result.push(...await files(filename));
+    else if (entry.isFile()) result.push(filename);
+    else throw new Error('Build source must contain regular files: ' + filename);
   }
+  return result;
 }
-await hashAssets(publicDir);
-assetHash.update(await readFile(fileURLToPath(import.meta.url)));
-const buildVersion = assetHash.digest('hex').slice(0, 12);
-let count = 0;
-async function copyDirectory(directory) {
-  for (const entry of await readdir(directory, { withFileTypes: true })) {
-    const original = path.join(directory, entry.name);
-    const relative = path.relative(publicDir, original);
-    const destination = path.join(output, relative);
-    if (entry.isDirectory()) { await mkdir(destination, { recursive: true }); await copyDirectory(original); continue; }
-    if (!entry.isFile()) continue;
-    const extension = path.extname(entry.name);
-    let content = await readFile(original);
-    if (['.html', '.css', '.js'].includes(extension)) {
-      let source = content.toString('utf8');
-      if (extension === '.html') {
-        source = source.replaceAll('href="/card"', 'href="./card.html"').replaceAll(/\b(href|src)="\/(?!\/)/g, '$1="./');
-        source = source.replace('</head>', '  <meta name="tapx-hosting" content="github-pages">\n</head>');
-        source = source.replaceAll(/(\b(?:href|src)=")((?:\.\/)[^"?]+\.(?:js|css))(\")/g, `$1$2?v=${buildVersion}$3`);
-      }
-      if (extension === '.css') source = source.replaceAll(/url\((['"]?)\/assets\//g, 'url($1./assets/');
-      if (extension === '.js') source = source.replaceAll("'/assets/", "'./assets/");
-      if (['dashboard.js', 'card.js'].includes(entry.name)) source = `import './static-api.js';\n${source}`;
-      if (extension === '.js') source = source.replaceAll(/(\bfrom\s+|\bimport\s*)(['"])(\.[^'"?]+\.js)\2/g, `$1$2$3?v=${buildVersion}$2`);
-      content = source;
-    }
-    await mkdir(path.dirname(destination), { recursive: true });
-    await writeFile(destination, content); count++;
-  }
-}
+const entries = await files(source);
+const hash = createHash('sha256');
+for (const filename of entries) hash.update(path.relative(source, filename).split(path.sep).join('/')).update(await readFile(filename));
+hash.update(await readFile(fileURLToPath(import.meta.url)));
+const version = hash.digest('hex').slice(0, 12);
+
+// Remove only the checked, generated output so old assets never reach a deployment.
+await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
-await copyDirectory(publicDir);
+for (const filename of entries) {
+  const relative = path.relative(source, filename);
+  const destination = path.resolve(output, relative);
+  if (!destination.startsWith(output + path.sep)) throw new Error('Unexpected output file.');
+  const extension = path.extname(filename);
+  let content = await readFile(filename);
+  if (extension === '.html') content = content.toString('utf8').replaceAll(/(\b(?:href|src)=")((?:\.\/)[^"?]+\.(?:js|css))(\")/g, '$1$2?v=' + version + '$3');
+  if (extension === '.js') content = content.toString('utf8').replaceAll(/(\bfrom\s+|\bimport\s*)(['"])(\.[^'"?]+\.js)\2/g, '$1$2$3?v=' + version + '$2');
+  await mkdir(path.dirname(destination), { recursive: true });
+  await writeFile(destination, content);
+}
 await writeFile(path.join(output, '.nojekyll'), '');
-await writeFile(path.join(output, 'README.md'), '# TapX Card Studio\n\nGitHub Pages deployment files. Changes are saved only in each visitor’s browser.\n');
-console.log(`GitHub Pages build ready: ${count + 2} files in pages-dist/.`);
+console.log('GitHub Pages build ready: ' + (entries.length + 1) + ' files in pages-dist/.');
