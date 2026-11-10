@@ -39,7 +39,7 @@ function renderCard(card) {
   $('[data-save="personal"]').dataset.filename = `${p.firstName}-${p.lastName}-TapX.vcf`;
   $('.contact-actions').setAttribute('aria-label', `Contact ${p.firstName}`);
   card.contacts.forEach(entry => {
-    const anchor = $(`[data-link="${entry.type === 'email' ? 'email' : entry.type}"]`);
+    const anchor = $(`[data-link="${entry.type}"]`);
     anchor.href = contactURL(entry);
     anchor.querySelector('span').textContent = entry.label;
   });
@@ -50,7 +50,6 @@ function renderCard(card) {
   const socials = card.socials.filter(item => item.visible && safeURL(item.url));
   $('[data-open-social]').hidden = !d.showSocial || !socials.length;
   $('.link-actions').classList.toggle('single-link', Number(!website.hidden) + Number(!$('[data-open-social]').hidden) === 1);
-  $('.social-stack').innerHTML = socials.slice(0, 2).map(item => icon(item.platform, item.platform)).join('');
   $('[data-open-social] .link-title').innerHTML = `<span class="social-stack" aria-hidden="true">${socials.slice(0, 2).map(item => icon(item.platform, item.platform)).join('')}</span>${e(w.findOnline)}${icon('external', 'external')}`;
   text('[data-open-social] small', w.socialHint);
   text('#social-dialog .eyebrow', w.socialEyebrow);

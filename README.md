@@ -11,7 +11,7 @@ This folder is the source for [omalbopeee/co-founder-Omal-Bopage-dashboard](http
 3. Open **Actions → Deploy GitHub Pages**. The workflow runs on pushes to main; you can also choose **Run workflow**.
 4. Open the site URL shown by the successful deployment.
 
-The expected default project address is https://omalbopeee.github.io/co-founder-Omal-Bopage-dashboard/ once deployment succeeds. The saved card opens at **card.html** on the same site.
+Live dashboard: https://omalbopeee.github.io/co-founder-Omal-Bopage-dashboard/. The saved card opens at **card.html** on the same site.
 
 The included workflow tests the code, builds **pages-dist/** and deploys only that static output. No npm packages, account tokens or custom secrets are required by the project. The workflow follows [GitHub's Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
@@ -39,5 +39,3 @@ No dependency installation is needed. Change the PORT environment variable if 41
 - **scripts/**: static build and local preview helpers.
 - **test/**: checks used locally and by the deployment workflow.
 - **.github/workflows/pages.yml**: GitHub Pages deployment configuration.
-
-The former disk-save server, API shim, default-only data folder, unused share image and fixed contact files have been removed. The original profile website lives separately in the neighbouring co-founder-Omal-Bopage folder.

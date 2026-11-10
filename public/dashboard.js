@@ -147,7 +147,7 @@ function clearErrors() { errors = []; $('#error-banner').hidden = true; }
 function goToErrors() {
   const first = errors[0];
   const group = first.path.split('.')[0];
-  section = group === 'wording' || group === 'design' ? 'design' : group === 'website' ? 'contacts' : group === 'profile' ? 'profile' : group === 'company' ? 'company' : group;
+  section = group === 'wording' || group === 'design' ? 'design' : group === 'website' ? 'contacts' : group;
   if (!SECTIONS.some(s => s.id === section)) section = 'profile';
   renderPanel();
   const field = document.querySelector(`[data-path="${first.path}"]`);
@@ -279,12 +279,10 @@ window.addEventListener('message', event => {
 for (const frame of [$('#live-frame'), $('#full-frame')]) frame.addEventListener('load', () => sendPreview(frame));
 
 hydrateIcons(); renderNav();
-async function initialise() {
+function initialise() {
   try {
     const record = cardStore.read();
-    const issues = validateCard(record.card);
-    if (issues.length) throw new Error('The saved card could not be read. Allow site storage and reload the page.');
-    draft = applyEditingPolicy(record.card); saved = clone(draft); revision = record.revision; savedAt = record.savedAt;
+    draft = clone(record.card); saved = clone(draft); revision = record.revision; savedAt = record.savedAt;
     renderPanel(); refreshPreviews();
     try { const recovered = JSON.parse(localStorage.getItem(DRAFT_KEY)); if (recovered?.card) recovered.card = applyEditingPolicy(recovered.card); if (recovered?.card && !validateCard(recovered.card, { allowIncomplete: true }).length && JSON.stringify(recovered.card) !== JSON.stringify(saved)) { recoveredDraft = recovered; $('#recovery-banner').hidden = false; } } catch {}
   } catch (error) {

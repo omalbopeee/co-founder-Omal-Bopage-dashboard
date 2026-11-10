@@ -13,7 +13,7 @@ export function createCardStore({ storage, pathname = appPath, locks = globalThi
     if (!record || !Number.isSafeInteger(record.revision) || record.revision < 0 || (record.savedAt !== null && (typeof record.savedAt !== 'string' || !Number.isFinite(Date.parse(record.savedAt))))) throw new Error('The saved browser record could not be read.');
     record.card = applyEditingPolicy(record.card);
     if (validateCard(record.card).length) throw new Error('The saved browser card could not be read.');
-    return { ...record, storage: 'browser' };
+    return record;
   }
   async function save(card, revision) {
     const errors = validateCard(card);
@@ -22,7 +22,7 @@ export function createCardStore({ storage, pathname = appPath, locks = globalThi
     const write = () => {
       const current = read();
       if (revision !== current.revision) throw new Error('This card changed in another tab. Reload this page, then restore your draft to review your edits.');
-      const next = { card: submitted, revision: current.revision + 1, savedAt: now(), storage: 'browser' };
+      const next = { card: submitted, revision: current.revision + 1, savedAt: now() };
       try { getStorage().setItem(recordKey, JSON.stringify(next)); }
       catch { throw new Error('Browser storage is full or unavailable. Allow site storage or choose a smaller photo, then try again.'); }
       return clone(next);
