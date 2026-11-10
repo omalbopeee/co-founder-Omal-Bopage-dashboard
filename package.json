@@ -1,0 +1,14 @@
+{
+  "name": "omal-bopage-card-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A separate TapX Card Studio for Omal Bopage's digital card.",
+  "scripts": {
+    "start": "node server.mjs",
+    "build": "node scripts/build-pages.mjs",
+    "build:pages": "node scripts/build-pages.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

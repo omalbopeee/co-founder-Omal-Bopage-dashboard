@@ -1,0 +1,366 @@
+/* Readability takes priority over forcing a fixed screen height. */
+body{font-size:1rem}
+.card-stage{width:min(440px,100%);padding:20px 0 8px}
+.card-cover{height:124px}
+.card-content{padding:65px 24px 20px}
+.brand>span{font-size:.625rem;letter-spacing:1px}
+.cover-label,.hello,.card-footer,.contact-help,.sheet-footnote{display:none}
+.share-button,.close-button,.company-header .close-button{width:44px;height:44px;flex-shrink:0}
+.identity h1{font-size:2rem;overflow-wrap:anywhere}
+.role{font-size:.875rem;flex-wrap:wrap}
+.intro{font-size:.875rem;margin:10px 0 18px}
+.save-button{font-size:1rem;min-height:54px}
+.contact-actions>a{min-height:68px;padding:8px 2px}
+.contact-actions span{font-size:.875rem;overflow-wrap:anywhere;max-width:100%}
+.link-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+.link-title{font-size:.875rem;white-space:normal;flex-wrap:wrap}
+.link-title>.external{display:none}
+.link-tile>small{font-size:.75rem;overflow-wrap:anywhere}
+.company-trigger{margin-top:14px}
+.company-trigger small{font-size:.625rem;white-space:normal;letter-spacing:1px}
+.company-trigger strong{font-size:.9375rem}
+.powered-by{font-size:.75rem;min-height:44px;margin-top:4px}
+.company-sheet{height:min(800px,94dvh)}
+.company-header{padding:16px 20px}
+.company-header>div{min-width:0}
+.company-header h2{font-size:1.375rem;overflow-wrap:anywhere}
+.company-header p{font-size:.75rem;line-height:1.5}
+.company-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:0 16px;gap:4px}
+.company-tabs>button{min-width:0;min-height:48px;font-size:.875rem;white-space:normal;overflow-wrap:anywhere;padding:10px 4px}
+.company-panel{padding:22px 20px;overflow-wrap:anywhere}
+.about-panel .eyebrow{font-size:.625rem;line-height:1.6;letter-spacing:1px}
+.about-panel h3{font-size:2.25rem}
+.about-panel>p{font-size:1rem;line-height:1.75}
+.tap-flow{font-size:.875rem;flex-wrap:wrap;gap:10px}
+.solution{align-items:flex-start;padding:16px 0}
+.solution h3{font-size:1rem}
+.solution h3>span{font-size:.8125rem}
+.solution p{font-size:.875rem;line-height:1.7}
+.solution-photo{width:60px;height:60px}
+.media-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.media-choices>button{min-height:44px;font-size:.875rem}
+.media-frame figcaption{font-size:.875rem}
+.media-frame figcaption>span{font-size:.75rem}
+.product-open{display:block;width:100%;padding:0;background:#f4f6f8;cursor:zoom-in}
+.product-open img{width:100%;height:auto;max-height:360px;object-fit:contain}
+.product-open-label{display:block;padding:10px;font-size:.8125rem;color:var(--ink);background:#edf2f6}
+.company-contact{padding:16px 20px max(20px,env(safe-area-inset-bottom))}
+.company-contact-links{grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:4px 12px}
+.company-contact-links>a{font-size:.875rem;min-height:44px;overflow-wrap:anywhere}
+.company-contact-links>a:last-child{grid-column:auto}
+.company-buttons{flex-wrap:wrap}
+.save-company,.company-whatsapp{min-height:48px;font-size:.875rem;flex:1 1 150px}
+.sheet-intro,.social-option strong,.share-sheet input{font-size:1rem}
+.social-option small,.share-sheet label,.dialog-status,.toast{font-size:.875rem}
+.sheet-heading>div{min-width:0}
+.sheet-heading h2{font-size:1.5rem;overflow-wrap:anywhere}
+.eyebrow{font-size:.625rem}
+.image-viewer{padding:16px;width:min(1000px,100%);height:94dvh;max-width:100%;max-height:100dvh;border:0;border-radius:18px;background:#fff;color:var(--ink)}
+.image-viewer[open]{display:flex;flex-direction:column}
+.image-toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.image-toolbar h2{font-size:1rem;margin:0}
+.image-help{font-size:.875rem;margin:10px 0}
+.image-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:12px}
+.image-controls button{width:44px;height:44px;border-radius:10px;background:#edf2f6;font-size:1.5rem}
+.image-controls button:disabled{opacity:.45;cursor:default}
+.image-scroll{overflow:auto;min-height:0;flex:1;background:#f4f6f8;touch-action:pan-x pan-y pinch-zoom}
+.image-scroll img{width:100%;max-width:none;height:auto}
+.image-scroll.zoom-2 img{width:200%}
+.image-scroll.zoom-3 img{width:300%}
+@media(max-width:360px){body{padding:0 12px}.card-content{padding-left:16px;padding-right:16px}.identity h1{font-size:1.75rem}.link-actions{grid-template-columns:1fr}.link-tile{min-height:54px}}
+@media(max-height:500px){.company-sheet[open]{overflow-y:auto;display:block}.company-body{overflow:visible}}
+
+.company-header p{display:none}
+
+/* A personal introduction, with the portrait and identity at equal prominence. */
+:root {
+  --ink:var(--navy);
+  --muted:#5f5b54;
+  --line:#dcd6cb;
+  --paper:#f5f2eb;
+  --surface:#ece8df;
+  --surface-hover:#e3ded3;
+}
+body {
+  background:#d8d5ce;
+}
+.business-card {
+  background:var(--paper);
+  border:1px solid #e4dfd5;
+  border-radius:28px;
+  box-shadow:0 18px 55px #27251f18,0 2px 6px #27251f08;
+}
+.profile-header {
+  padding:20px 24px 0;
+  background:linear-gradient(90deg,var(--red) 0 22%,var(--navy) 22% 100%) top / 100% 3px no-repeat,var(--paper);
+  color:var(--navy);
+}
+.profile-tools {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:20px;
+}
+.card-label {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:.75rem;
+  font-weight:600;
+  color:var(--muted);
+}
+.card-label .icon {
+  width:18px;
+  height:18px;
+  color:var(--red);
+}
+.share-button {
+  width:auto;
+  max-width:100%;
+  min-height:44px;
+  height:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:10px 12px;
+  font-size:.8125rem;
+  font-weight:600;
+  color:var(--navy);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+}
+.share-button span {
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.profile-introduction {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:22px;
+}
+.profile-portrait {
+  flex-shrink:0;
+  width:124px;
+  height:154px;
+  object-fit:cover;
+  object-position:50% 35%;
+  border-radius:18px;
+  border:1px solid #e5e9ed;
+  background:#edf0f3;
+}
+.portrait-trigger {
+  position:relative;
+  display:block;
+  flex-shrink:0;
+  max-width:100%;
+  border-radius:18px;
+  cursor:zoom-in;
+}
+.portrait-expand {
+  position:absolute;
+  right:7px;
+  bottom:7px;
+  display:grid;
+  place-items:center;
+  width:26px;
+  height:26px;
+  border-radius:8px;
+  background:#fff;
+  color:var(--ink);
+  box-shadow:0 2px 8px #14283d20;
+  pointer-events:none;
+}
+.portrait-expand .icon {
+  width:16px;
+  height:16px;
+}
+.portrait-mode .image-scroll:not(.zoom-2):not(.zoom-3) img {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.image-viewer.portrait-mode {
+  inset:0;
+  margin:0;
+  width:100%;
+  max-width:none;
+  height:100dvh;
+  max-height:none;
+  border-radius:0;
+  background:#111820;
+  color:#fff;
+  padding:max(12px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+}
+.portrait-mode .image-help,.portrait-mode .image-controls {
+  display:none;
+}
+.portrait-mode .image-toolbar {
+  margin-bottom:12px;
+}
+.portrait-mode .close-button {
+  background:#ffffff18;
+  color:#fff;
+}
+.portrait-mode .image-scroll {
+  position:relative;
+  overflow:hidden;
+  background:transparent;
+}
+.portrait-trigger,.portrait-mode .image-scroll {
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  user-select:none;
+}
+.portrait-trigger img,.portrait-mode .image-scroll img {
+  -webkit-user-drag:none;
+}
+.identity {
+  flex:1 1 7em;
+  text-align:left;
+  min-width:0;
+}
+.identity h1 {
+  font-size:2rem;
+  letter-spacing:-1px;
+  line-height:1.12;
+}
+.profile-role {
+  margin:12px 0 0;
+  font-size:.875rem;
+  line-height:1.65;
+  color:var(--muted);
+}
+.profile-role strong {
+  color:var(--navy);
+  font-weight:600;
+}
+.intro {
+  margin:20px 0;
+  text-align:left;
+  font-size:.875rem;
+  line-height:1.6;
+  color:var(--muted);
+}
+.card-content {
+  padding:0 24px 24px;
+}
+.contact-actions>a {
+  background:var(--surface);
+  border-color:var(--line);
+}
+.contact-actions .icon {
+  color:var(--navy);
+}
+.link-tile {
+  background:var(--surface);
+  border-color:var(--line);
+}
+.social-stack .icon {
+  background:var(--surface);
+}
+.company-trigger {
+  margin-top:20px;
+  background:#e4dfd4;
+  border-color:#d3ccbf;
+  color:var(--navy);
+}
+.company-trigger small {
+  color:var(--muted);
+}
+.company-trigger-arrow {
+  background:var(--navy);
+  border-color:var(--navy);
+  color:#fff;
+}
+.sheet {
+  background:var(--paper);
+  border-color:var(--line);
+}
+.company-header {
+  background:var(--paper);
+}
+.company-tabs {
+  background:var(--surface);
+}
+.company-contact {
+  background:var(--surface);
+  border-top-color:var(--line);
+}
+.close-button,.share-sheet input,.media-choices>button {
+  background:var(--surface);
+  border-color:var(--line);
+  color:var(--navy);
+}
+.sheet .close-button>.icon,.company-contact-links>a>.icon {
+  color:var(--navy);
+}
+.media-choices>button[aria-pressed=true] {
+  background:var(--navy);
+  border-color:var(--navy);
+  color:#fff;
+}
+.eyebrow,.about-panel>p,.company-contact-links>a>.external {
+  color:var(--muted);
+}
+.sheet-handle {
+  background:#c9c1b4;
+}
+.powered-by {
+  margin-top:8px;
+  color:var(--muted);
+}
+.powered-by strong {
+  color:var(--navy);
+}
+@media(hover:hover) {
+  .share-button:hover {
+    background:var(--surface-hover);
+    border-color:#c5bcad;
+  }
+  .contact-actions>a:hover {
+    background:var(--surface-hover);
+    border-color:#c5bcad;
+  }
+  .link-tile:hover {
+    background:var(--surface-hover);
+    border-color:#c5bcad;
+  }
+  .link-tile:hover .social-stack .icon {
+    background:var(--surface-hover);
+  }
+  .company-trigger:hover {
+    background:#dbd5c9;
+    border-color:#bfb5a5;
+  }
+  .company-trigger:hover .company-trigger-arrow {
+    background:var(--red);
+    border-color:var(--red);
+    color:#fff;
+  }
+  .close-button:hover {
+    background:var(--surface-hover);
+  }
+}
+@media(max-width:380px) {
+  .profile-header {
+    padding:16px 18px 0;
+  }
+  .profile-introduction {
+    gap:16px;
+  }
+  .profile-portrait {
+    width:104px;
+    height:138px;
+  }
+  .identity h1 {
+    font-size:1.75rem;
+  }
+  .card-content {
+    padding:0 18px 20px;
+  }
+}

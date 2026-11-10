@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#061e3f">
+  <title>Omal Bopage · TapX Card Studio</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Edit every detail of your digital business card, preview your changes, and save from one simple dashboard.">
+  <link rel="icon" type="image/webp" href="/assets/tapx-logo.webp">
+  <link rel="stylesheet" href="/dashboard.css">
+  <link rel="stylesheet" href="/tapx-theme.css">
+  <script type="module" src="/dashboard.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#editor">Skip to editor</a>
+  <div class="workspace">
+    <aside class="sidebar" aria-label="Card editor navigation">
+      <a class="brand" href="/" aria-label="TapX Card Studio home"><img class="brand-logo" src="/assets/tapx-logo.webp" alt="TapX" width="56" height="56"><span class="brand-title">Card Studio<small>YOUR DIGITAL IDENTITY</small></span></a>
+      <div class="workspace-label">YOUR WORKSPACE</div>
+      <div class="card-selected"><span class="card-selected-icon" data-icon="grid"></span><span>My digital card<small>Omal Bopage · Co-Founder</small></span><span class="selected-dot"></span></div>
+      <div class="nav-label">EDIT YOUR CARD</div>
+      <nav id="section-nav"></nav>
+      <div class="sidebar-bottom">
+        <div class="help-note"><span data-icon="info"></span><strong>A little edit. A better hello.</strong><p>Your changes appear in the preview as you type. Save when it feels right.</p></div>
+        <div class="local-indicator"><i></i><span id="workspace-mode">Local workspace</span><span data-icon="save"></span></div>
+      </div>
+    </aside>
+    <div class="main-shell">
+      <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> My digital card <span>/</span> <strong>Edit</strong></div><div class="topbar-right"><span class="studio-tag">CARD STUDIO</span><span class="owner-avatar" id="owner-avatar">OB</span></div></header>
+      <main id="editor" tabindex="-1">
+        <div class="page-heading"><div><div class="eyebrow">YOUR NEXT INTRODUCTION STARTS HERE</div><h1>Make it yours<span>.</span></h1><p>A familiar face. The right details. One lasting connection.</p></div><div class="heading-actions"><span class="save-status" id="save-status" role="status"><i></i> Loading card</span><button class="button secondary" type="button" id="reset-button" disabled><span data-icon="undo"></span>Reset</button><button class="button secondary" type="button" id="preview-button"><span data-icon="eye"></span>Preview</button><button class="button primary" type="button" id="save-button" disabled><span data-icon="check"></span><span>Save changes</span></button><a class="button primary saved-card-button" id="view-saved-card-button" href="/card" target="_blank" rel="noopener noreferrer" hidden><span data-icon="external"></span>View saved card</a></div></div>
+        <div class="recovery-banner" id="recovery-banner" hidden><span>You have an unfinished edit from your last visit.</span><div><button type="button" data-command="restore-draft">Restore draft</button><button type="button" data-command="dismiss-draft" aria-label="Dismiss recovered draft">Dismiss</button></div></div>
+        <div class="error-banner" id="error-banner" role="alert" hidden></div>
+        <div class="storage-notice" id="storage-notice" hidden><span data-icon="info"></span><p><strong>Your edits stay in this browser.</strong> Use the same browser and device to return to your saved card. Saving here does not update the original live card.</p></div>
+        <div class="editor-layout">
+          <div class="form-column">
+            <div id="panel"><div class="loading-state">Getting your card ready…</div></div>
+            <div class="editor-footer"><span id="saved-at">Your card is saved on this computer.</span><button class="text-button" type="button" id="discard-button" disabled><span data-icon="undo"></span>Discard changes</button></div>
+          </div>
+          <aside class="preview-column" aria-label="Live digital card preview">
+            <div class="preview-heading"><div><span class="live-dot"></span><strong>Live preview</strong></div><button class="icon-button" type="button" id="expand-preview" aria-label="Open full preview"><span data-icon="external"></span></button></div>
+            <div class="preview-canvas"><div class="phone-frame"><div class="phone-camera"></div><iframe id="live-frame" title="Live preview of your unsaved digital card" src="/card.html?preview=1"></iframe></div><div class="preview-caption"><span data-icon="eye"></span> A look at your next first impression.</div></div>
+            <div class="preview-tip"><span data-icon="info"></span><p>This is your draft. <strong>Save changes</strong> to update your saved card.</p></div>
+          </aside>
+        </div>
+        <div class="workspace-footer"><span>Made for meaningful connections.</span><span>Powered by <strong>Tap<span>X</span></strong></span></div>
+      </main>
+    </div>
+  </div>
+  <dialog id="preview-dialog" class="preview-dialog" aria-labelledby="preview-dialog-title"><div class="preview-dialog-header"><div><span class="eyebrow">BEFORE YOU SAVE</span><h2 id="preview-dialog-title">Your card, in the real world.</h2><p>Explore your draft. Open your photo, social links and company details.</p></div><button class="icon-button" type="button" data-command="close-preview" aria-label="Close preview"><span data-icon="close"></span></button></div><div class="preview-toolbar"><div class="device-switch" aria-label="Preview size"><button type="button" data-device="mobile" class="active" aria-pressed="true"><span data-icon="mobile"></span>Mobile</button><button type="button" data-device="desktop" aria-pressed="false"><span data-icon="desktop"></span>Desktop</button></div><span class="draft-label"><i></i>Unsaved draft preview</span></div><div class="large-preview-canvas"><iframe id="full-frame" title="Full interactive preview of your draft" src="/card.html?preview=1"></iframe></div><div class="preview-dialog-footer"><button class="button secondary" type="button" data-command="close-preview">Keep editing</button><button class="button primary" type="button" id="preview-save-button"><span data-icon="check"></span>Save changes</button></div></dialog>
+  <dialog id="discard-dialog" class="confirm-dialog" aria-labelledby="discard-title"><div class="confirm-icon" data-icon="undo"></div><h2 id="discard-title">Discard these changes?</h2><p>Your saved card will be restored. These unfinished edits will be removed from your draft.</p><div><button class="button secondary" type="button" data-command="cancel-discard">Keep editing</button><button class="button danger" type="button" data-command="confirm-discard">Discard changes</button></div></dialog>
+  <dialog id="reset-dialog" class="confirm-dialog" aria-labelledby="reset-title"><div class="confirm-icon" data-icon="undo"></div><h2 id="reset-title">Reset to the original card?</h2><p>This restores the original photo, details, links and design to your draft. Preview the result and click Save changes when you’re ready. Your saved card stays as it is until you save.</p><div><button class="button secondary" type="button" data-command="cancel-reset">Keep editing</button><button class="button primary" type="button" data-command="confirm-reset">Reset card</button></div></dialog>
+  <div id="app-toast" class="app-toast" role="status" aria-live="polite"></div>
+  <noscript><div class="no-script">Enable JavaScript to use the card editor.</div></noscript>
+</body>
+</html>

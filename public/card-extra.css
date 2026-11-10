@@ -1,0 +1,22 @@
+body { background: var(--editor-canvas, #d8d5ce); }
+.link-actions.single-link { grid-template-columns: minmax(0, 1fr); }
+.profile-role, .intro, .company-trigger strong { overflow-wrap: anywhere; }
+.profile-role { white-space: normal; }
+.profile-introduction:has(.portrait-trigger[hidden]) .identity { padding-block: 12px; }
+.social-platform .icon { width: 23px; height: 23px; }
+.social-platform:has(.icon) { font: inherit; }
+.company-header p { display: block; }
+.sheet-footnote, .contact-help { display: block; line-height: 1.6; }
+.company-trigger { background: color-mix(in srgb, var(--surface) 90%, var(--navy)); }
+.company-trigger:hover { background: var(--surface-hover); }
+.company-header h2, .solution h3, .media-choices button { overflow-wrap: anywhere; }
+.solutions-panel > p, .showcase-panel > p { line-height: 1.7; }
+.company-contact-links > a { min-width: 0; }
+.company-contact-links > a > .icon { flex-shrink: 0; }
+.about-panel > p { white-space: pre-line; }
+@media (max-width: 340px) {
+  .contact-actions span { font-size: .75rem; }
+  .card-label { font-size: .6875rem; gap: 5px; }
+  .share-button { font-size: .75rem; padding-inline: 8px; gap: 6px; }
+  .share-button .icon { width: 18px; height: 18px; }
+}

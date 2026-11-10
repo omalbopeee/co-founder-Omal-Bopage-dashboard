@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 650" role="img" aria-labelledby="tapx-title tapx-description">
+  <title id="tapx-title">TAPX</title>
+  <desc id="tapx-description">A folded white crane with a red wing above the TAPX wordmark and contactless signal.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".8"/>
+    </linearGradient>
+    <linearGradient id="neck-fold" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#061e3f" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="body-fold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#061e3f" stop-opacity=".4"/>
+    </linearGradient>
+  </defs>
+  <g stroke-linejoin="round">
+    <path fill="url(#paper)" d="M14 135 131 68 112 119Z"/>
+    <path fill="#fff" d="M131 68 255 225 180 349Z"/>
+    <path fill="url(#neck-fold)" d="M131 68 112 119 180 349Z"/>
+    <path fill="#fff" d="M385 284 612 246 396 428Z"/>
+    <path fill="url(#body-fold)" d="M385 284 612 246 396 428Z"/>
+    <path fill="#fff" d="M255 225 180 349 328 444 353 393Z"/>
+    <path fill="url(#body-fold)" d="M180 349 353 393 328 444Z"/>
+    <path fill="url(#paper)" d="M255 225 353 393 180 349Z"/>
+    <path fill="#fff" d="M255 225 385 284 396 428Z"/>
+    <path fill="#f32230" d="M255 225 605 14 385 284Z"/>
+    <path fill="#fff" d="M605 14 396 428 385 284Z"/>
+    <path fill="url(#paper)" d="M605 14 396 428 385 284Z"/>
+  </g>
+  <g fill="#fff">
+    <path d="M14 483H144V518H97V636H61V518H14Z"/>
+    <path fill-rule="evenodd" d="M204 483H240L300 636H260L249 606H194L183 636H143ZM205 573H237L221 530Z"/>
+    <path fill-rule="evenodd" d="M311 483H380C424 483 449 506 449 540S424 597 380 597H348V636H311ZM348 516V565H378C400 565 411 556 411 541S400 516 378 516Z"/>
+  </g>
+  <g fill="#f32230">
+    <path d="M451 483H498L533 532 567 483H613L556 558 615 636H568L532 585 496 636H450L509 558Z"/>
+    <path d="M544 465A49 49 0 0 1 592 504L575 508A32 32 0 0 0 544 482Z"/>
+    <path d="M539 430A85 85 0 0 1 627 496L609 500A67 67 0 0 0 541 448Z"/>
+    <path d="M534 395A119 119 0 0 1 640 473L640 489 626 492A102 102 0 0 0 537 413Z"/>
+  </g>
+</svg>
